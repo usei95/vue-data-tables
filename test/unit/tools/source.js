@@ -1,6 +1,8 @@
 
 export let DELAY = 100
 
+export let emptyData = []
+
 export let tableData = [{
   'building': '5',
   'building_group': 'North',
@@ -63,7 +65,7 @@ let titles = [{
   label: 'Type'
 }, {
   prop: 'building_group',
-  label: 'building'
+  label: 'building group'
 }, {
   prop: 'building',
   label: 'building'
@@ -79,19 +81,10 @@ let serverData = []
 
 for (let i = 0; i < 1000; i++) {
   serverData.push({
-    'building': '6',
-    'building_group': 'Sourth',
-    'cellphone': '13400000000',
-    'content': 'Lock broken',
-    'create_time': '2016-10-01 22:25',
+    'content': 'Lock broken' + i,
     'flow_no': 'FW20160101000' + i,
-    'flow_type': 'Repair',
-    'flow_type_code': 'repair',
-    'id': i,
-    'room_id': '00701',
-    'room_no': '701',
-    'state': 'Assigned',
-    'state_code': 'assigned'
+    'flow_type': i % 2 === 0 ? 'Repair' : 'Help',
+    'flow_type_code': i % 2 === 0 ? 'repair' : 'help',
   })
 }
 
@@ -102,15 +95,60 @@ sortInfo: this.sortData,
 filters: this.filters
 */
 
-export let mockServer = function(res, time = 200) {
-  return new Promise((resolve) => {
-    setTimeout(_ => {
-      resolve({
-        data: serverData.slice((res.page - 1) * res.pageSize, res.page * res.pageSize),
-        req: res,
-        ts: new Date(),
-        total: 1000
+export let mockServer = function (res) {
+  let datas = serverData.slice()
+  let allKeys = Object.keys(data[0])
+
+  // do filter
+  res && res.filters && res.filters.forEach(filter => {
+    datas = datas.filter(data => {
+      let props = (filter.search_prop && [].concat(filter.search_prop)) || allKeys
+      return props.some(prop => {
+        if (!filter.value || filter.value.length === 0) {
+          return true
+        }
+        return [].concat(filter.value).some(val => {
+          return data[prop].toString().toLowerCase().indexOf(val.toLowerCase()) > -1
+        })
       })
+    })
+  })
+
+  // do sort
+  if (res.sort && res.sort.order) {
+    let order = res.sort.order
+    let prop = res.sort.prop
+    let isDescending = order === 'descending'
+
+    datas.sort(function (a, b) {
+      if (a[prop] > b[prop]) {
+        return 1
+      } else if (a[prop] < b[prop]) {
+        return -1
+      } else {
+        return 0
+      }
+    })
+    if (isDescending) {
+      datas.reverse()
+    }
+  }
+
+  return {
+    data: datas.slice((res.page - 1) * res.pageSize, res.page * res.pageSize),
+    req: res,
+    ts: new Date(),
+    total: datas.length
+  }
+}
+
+export let http = function(res, time = 200) {
+  console.log('http')
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      var data = mockServer(res)
+      console.log('fake server return data: ', data)
+      resolve(data)
     }, time)
   })
 }
