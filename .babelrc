@@ -8,6 +8,7 @@
     }],
     "stage-2"
   ],
+  "sourceMap": "inline",
   "plugins": ["transform-runtime", "lodash", "vue-jsx-sync", "jsx-v-model", "transform-vue-jsx"],
   "env": {
     "test": {
