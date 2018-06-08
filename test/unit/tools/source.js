@@ -91,7 +91,12 @@ let i = 1
 // fake http
 export function http(res, time = 200) {
   return new Promise((resolve, reject) => {
+    // setTimeout(_ => {
+      console.log('done')
       var data = mockServer(res)
+      // console.log('fake server return data: ', data)
       resolve(data)
+    // }, time)
+
   })
 }
