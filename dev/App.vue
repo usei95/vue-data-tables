@@ -50,15 +50,15 @@
       </el-row>
       <el-table-column prop="flow_no" label="No." sortable="custom"></el-table-column>
       <el-table-column prop="content" label="Content" sortable="custom"></el-table-column>
-      <el-table-column prop="create_time" label="Time" sortable="custom"></el-table-column>
+      <el-table-column prop="create_time" label="Time" sortable="custom" :filters="[{ text: 'Home', value: 'Home' }, { text: 'Office', value: 'Office' }]"></el-table-column>
       <el-table-column prop="state" label="State" sortable="custom"></el-table-column>
       <el-table-column prop="flow_type" label="Type" sortable="custom"></el-table-column>
     </data-tables-server>
     <data-tables :data="tableData" :tableProps="tableProps" :filters="customFilters">
 
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="flow_no" label="No." sortable="custom"></el-table-column>
-      <el-table-column prop="content" label="Content" sortable="custom"></el-table-column>
+      <el-table-column type="selection" width="55" ></el-table-column>
+      <el-table-column prop="flow_no" label="No." sortable="custom" :filters="[{ text: 'Home', value: 'Home' }, { text: 'Office', value: 'Office' }]"></el-table-column>
+      <el-table-column prop="content" label="Content" sortable="custom" :filters="[{ text: 'Home', value: 'Home' }, { text: 'Office', value: 'Office' }]"></el-table-column>
       <el-table-column prop="create_time" label="Time" sortable="custom"></el-table-column>
       <el-table-column prop="state" label="State" sortable="custom"></el-table-column>
       <el-table-column prop="flow_type" label="Type" sortable="custom"></el-table-column>

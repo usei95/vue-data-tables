@@ -69,6 +69,7 @@ export default {
               : undefined
           }}
           style='width: 100%'
+          on-filter-change={ this.filterChange }
         >
           {
             this.$slots.default

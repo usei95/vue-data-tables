@@ -52,6 +52,9 @@ export default {
     },
   },
   methods: {
+    filterChange(filter) {
+      this.$emit('filter-change', filter)
+    },
     queryChange(type) {
       let info = {
         type,

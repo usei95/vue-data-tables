@@ -78,6 +78,9 @@ export default {
     },
   },
   methods: {
+    filterChange(filter) {
+      this.$emit('filter-change', filter)
+    },
     handleSort(obj) {
       this.sortData = obj
     },
