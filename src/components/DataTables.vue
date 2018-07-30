@@ -81,6 +81,9 @@ export default {
     filterChange(filter) {
       this.$emit('filter-change', filter)
     },
+    rowDoubleClick(e) {
+      this.$emit('row-dblclick', e)
+    },
     handleSort(obj) {
       this.sortData = obj
     },

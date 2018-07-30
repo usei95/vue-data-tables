@@ -70,6 +70,7 @@ export default {
           }}
           style='width: 100%'
           on-filter-change={ this.filterChange }
+          on-row-dblclick={ this.rowDoubleClick }
         >
           {
             this.$slots.default

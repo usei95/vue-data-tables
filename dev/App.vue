@@ -24,7 +24,8 @@
       :current-page.sync="currentPage"
       :page-size.sync="pageSize"
       :table-props="tableProps"
-      @query-change="loadData">
+      @query-change="loadData"
+      @filter-change="test">
       <el-row slot="tool">
         <el-col :span="5">
           <el-dropdown>
@@ -161,6 +162,9 @@ export default {
       this.total = total
       this.loading = false
     },
+    test(test){
+        console.log(test);
+    }
   }
 }
 </script>

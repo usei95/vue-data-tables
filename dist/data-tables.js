@@ -3496,7 +3496,8 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge);
         }, {
           style: 'width: 100%',
           on: {
-            'filter-change': this.filterChange
+            'filter-change': this.filterChange,
+            'row-dblclick': this.rowDoubleClick
           }
         }]),
         [this.$slots.default, h(
@@ -3788,6 +3789,9 @@ var defaultSortFn = function defaultSortFn(a, b, prop) {
     filterChange: function filterChange(filter) {
       this.$emit('filter-change', filter);
     },
+    rowDoubleClick: function rowDoubleClick(e) {
+      this.$emit('row-dblclick', e);
+    },
     handleSort: function handleSort(obj) {
       this.sortData = obj;
     },
@@ -4042,6 +4046,9 @@ var extends_default = /*#__PURE__*/__webpack_require__.n(helpers_extends);
   methods: {
     filterChange: function filterChange(filter) {
       this.$emit('filter-change', filter);
+    },
+    rowDoubleClick: function rowDoubleClick(e) {
+      this.$emit('row-dblclick', e);
     },
     queryChange: function queryChange(type) {
       var info = extends_default()({
